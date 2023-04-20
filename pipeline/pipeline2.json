@@ -25,6 +25,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -63,17 +64,17 @@
 						},
 						"ModifiedAt": {
 							"value": {
-								"value": "@convertFromUtc(activity('Get Metadata1').output.lastModified,'Pacific Standard Time')",
+								"value": "@activity('Get Metadata1').output.lastModified\n",
 								"type": "Expression"
 							},
-							"type": "DateTime"
+							"type": "Datetime"
 						},
 						"UpdatedAt": {
 							"value": {
-								"value": "@convertFromUtc(utcNow(), 'Pacific Standard Time' )\n\n",
+								"value": "@activity('Get Metadata1').output.lastModified\n\n\n",
 								"type": "Expression"
 							},
-							"type": "DateTime"
+							"type": "Datetime"
 						}
 					}
 				},
