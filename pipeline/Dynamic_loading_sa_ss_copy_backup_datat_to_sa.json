@@ -1,5 +1,5 @@
 {
-	"name": "Dynamic_loading_sa_ss_copy_backup_datat_to_sa_log_into_table",
+	"name": "Dynamic_loading_sa_ss_copy_backup_datat_to_sa",
 	"properties": {
 		"activities": [
 			{
@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "backup_data_",
+						"activity": "Backup_data",
 						"dependencyConditions": [
 							"Completed"
 						]
@@ -68,7 +68,7 @@
 				]
 			},
 			{
-				"name": "backup_data_",
+				"name": "Backup_data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -111,7 +111,7 @@
 						"referenceName": "AzureSqlTable_dynamic",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "country"
+							"tablename": "country "
 						}
 					}
 				],
@@ -127,114 +127,6 @@
 						}
 					}
 				]
-			},
-			{
-				"name": "Failuer_logging",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "csv_to_table_dynamic",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[InsertPipelineLog]",
-					"storedProcedureParameters": {
-						"PipelineID": {
-							"value": {
-								"value": "@pipeline().Pipeline",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"RunID": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"Status": {
-							"value": "Failure",
-							"type": "String"
-						},
-						"UpdatedAt": {
-							"value": {
-								"value": "@utcNow()",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "Sucess_logging",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "csv_to_table_dynamic",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[InsertPipelineLog]",
-					"storedProcedureParameters": {
-						"PipelineID": {
-							"value": {
-								"value": "@pipeline().Pipeline",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"RunID": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"Status": {
-							"value": "Success",
-							"type": "String"
-						},
-						"UpdatedAt": {
-							"value": {
-								"value": "@utcNow()",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				}
 			}
 		],
 		"annotations": []
