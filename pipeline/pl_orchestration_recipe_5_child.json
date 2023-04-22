@@ -1,0 +1,79 @@
+{
+	"name": "pl_orchestration_recipe_5_child",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Email Recipients",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select * from [dbo].[EmailRecipient]\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable_dynamic",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "EmailRecipients"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Email Recipients",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Email Recipients').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Send Email",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://adf-email-logicapp.azurewebsites.net:443/api/ADF-Logic/triggers/manual/invoke?api-version=2022-05-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=p9h7ph0GJm4JXe9R_eoDu4PInvenEobJyI2U4ee5JPo",
+								"method": "POST",
+								"headers": {
+									"Content-Type": "application/json"
+								},
+								"body": "@json(concat('{\"emailAddress\": \"',\nitem().emailAddress, '\", \"subject\":\n\"ADF Pipeline Failure\", \"messageBody\":\n\"ADF Pipeline Failed\"}'))"
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": []
+	}
+}
