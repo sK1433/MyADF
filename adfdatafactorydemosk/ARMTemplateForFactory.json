@@ -1235,7 +1235,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DelimitedText_folder",
+											"referenceName": "Backup_folder",
 											"type": "DatasetReference",
 											"parameters": {}
 										}
@@ -1300,6 +1300,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DelimitedText_folder')]",
 				"[concat(variables('factoryId'), '/datasets/DelimitedText_dynamic')]",
+				"[concat(variables('factoryId'), '/datasets/Backup_folder')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
@@ -1506,7 +1507,8 @@
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
-						"Microsoft.Storage.BlobCreated"
+						"Microsoft.Storage.BlobCreated",
+						"Microsoft.Storage.BlobDeleted"
 					]
 				}
 			},
