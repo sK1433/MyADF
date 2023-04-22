@@ -10,7 +10,8 @@
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/580d3d88-f833-43d7-9aa5-278946001d82/resourceGroups/TeamEcho-RG-DEV/providers/Microsoft.Storage/storageAccounts/teamechosa",
 			"events": [
-				"Microsoft.Storage.BlobCreated"
+				"Microsoft.Storage.BlobCreated",
+				"Microsoft.Storage.BlobDeleted"
 			]
 		}
 	}
