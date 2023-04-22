@@ -18,6 +18,10 @@
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://teamechosa.dfs.core.windows.net/"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/580d3d88-f833-43d7-9aa5-278946001d82/resourceGroups/TeamEcho-RG-DEV/providers/Microsoft.Storage/storageAccounts/teamechosa"
 		}
 	},
 	"variables": {
@@ -50,6 +54,26 @@
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/demodata/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
 				}
 			},
 			"dependsOn": []
@@ -415,7 +439,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"filename": {
-										"value": "@concat('Countries -',utcNow(),'backup')",
+										"value": "@concat('Countries -',utcNow(),'.backup')",
 										"type": "Expression"
 									}
 								}
@@ -1391,7 +1415,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"filename": {
-										"value": "@concat('Countries -',utcNow(),'backup')",
+										"value": "@concat('Countries -',utcNow(),'.backup')",
 										"type": "Expression"
 									}
 								}
