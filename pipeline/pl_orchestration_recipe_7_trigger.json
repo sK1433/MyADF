@@ -134,7 +134,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DelimitedText_folder",
+									"referenceName": "Backup_folder",
 									"type": "DatasetReference"
 								}
 							]
