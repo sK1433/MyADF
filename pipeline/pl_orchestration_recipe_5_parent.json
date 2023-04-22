@@ -121,7 +121,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"filename": {
-								"value": "@concat('Countries -',utcNow(),'backup')",
+								"value": "@concat('Countries -',utcNow(),'.backup')",
 								"type": "Expression"
 							}
 						}
