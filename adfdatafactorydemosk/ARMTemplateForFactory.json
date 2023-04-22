@@ -1499,8 +1499,16 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pl_orchestration_recipe_7_trigger",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/demodata/blobs/",
@@ -1512,7 +1520,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_orchestration_recipe_7_trigger')]"
+			]
 		}
 	]
 }
