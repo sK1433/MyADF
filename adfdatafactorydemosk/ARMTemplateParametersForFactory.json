@@ -11,6 +11,9 @@
 		"AzureDataLakeStorage2_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStorage3_accountKey": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
@@ -22,6 +25,12 @@
 		},
 		"AzureDataLakeStorage2_properties_typeProperties_url": {
 			"value": "https://teamechosa.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage3_properties_typeProperties_url": {
+			"value": "https://teamechosa.dfs.core.windows.net/"
+		},
+		"chicagoSafetyData_sasUri": {
+			"value": ""
 		},
 		"trigger1_properties_typeProperties_scope": {
 			"value": "/subscriptions/580d3d88-f833-43d7-9aa5-278946001d82/resourceGroups/TeamEcho-RG-DEV/providers/Microsoft.Storage/storageAccounts/teamechosa"
