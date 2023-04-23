@@ -17,6 +17,7 @@
 				"typeProperties": {
 					"url": "https://management.azure.com/subscriptions/580d3d88-f833-43d7-9aa5-278946001d82/resourceGroups/TeamEcho-RG-DEV/providers/Microsoft.Sql/servers/ssdatafactorydemo/databases/sqldw/resume?api-version=2019-06-01-preview",
 					"method": "POST",
+					"body": "{ SANDEEP}",
 					"authentication": {
 						"type": "MSI",
 						"resource": "https://management.core.windows.net"
